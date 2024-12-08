@@ -1,0 +1,57 @@
+services:
+  node0:
+    container_name: raft_node0
+    build: .
+    command: ["-id=0", "-address=node0:5030", "-peers=node0:5030,node1:5031,node2:5032,node3:5033,node4:5034"]
+    ports:
+      - "5030:5030"
+    networks:
+      raft-network:
+        ipv4_address: 172.16.239.10
+
+  node1:
+    container_name: raft_node1
+    build: .
+    command: ["-id=1", "-address=node1:5031", "-peers=node0:5030,node1:5031,node2:5032,node3:5033,node4:5034"]
+    ports:
+      - "5031:5031"
+    networks:
+      raft-network:
+        ipv4_address: 172.16.239.11
+
+  node2:
+    container_name: raft_node2
+    build: .
+    command: ["-id=2", "-address=node2:5032", "-peers=node0:5030,node1:5031,node2:5032,node3:5033,node4:5034"]
+    ports:
+      - "5032:5032"
+    networks:
+      raft-network:
+        ipv4_address: 172.16.239.12
+
+  node3:
+    container_name: raft_node3
+    build: .
+    command: ["-id=3", "-address=node3:5033", "-peers=node0:5030,node1:5031,node2:5032,node3:5033,node4:5034"]
+    ports:
+      - "5033:5033"
+    networks:
+      raft-network:
+        ipv4_address: 172.16.239.13
+
+  node4:
+    container_name: raft_node4
+    build: .
+    command: ["-id=4", "-address=node4:5034", "-peers=node0:5030,node1:5031,node2:5032,node3:5033,node4:5034"]
+    ports:
+      - "5034:5034"
+    networks:
+      raft-network:
+        ipv4_address: 172.16.239.14
+
+networks:
+  raft-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.239.0/24
